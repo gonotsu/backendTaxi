@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 
 const SECRET = "dhfbiweufiuwehifuo3738638229rheofksehefoihsedjvbksd";
 
-exports.register = async(req, res) => {
+exports.registers = async(req, res) => {
     try {
         const user = new User(req.body);
         await user.save();

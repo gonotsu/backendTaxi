@@ -21,7 +21,7 @@ router.put('/users/:id', userController.updateUser);
 router.delete('/users/:id', userController.deleteUser);
 router.get('/me', authMiddleware, authController.middlewareAuth)
 router.post('/auth/login', authController.login)
-router.post('/auth/register', authController.register)
+router.post('/auth/register', authController.registers)
 router.post('/users', userController.createUser);
 // --- Rides Routes ---
 router.post('/rides', rideController.createRide);
