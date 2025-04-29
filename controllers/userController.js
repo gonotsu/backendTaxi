@@ -55,3 +55,14 @@ exports.deleteUser = async(req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+// routes/users.js
+exports.putToken = async(req, res) => {
+    const { userId, pushToken } = req.body;
+    try {
+        await User.findByIdAndUpdate(userId, { pushToken });
+        res.status(200).json({ message: 'Token enregistré' });
+    } catch (err) {
+        res.status(500).json({ error: 'Erreur d’enregistrement du token' });
+    }
+};
