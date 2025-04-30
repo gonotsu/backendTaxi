@@ -1,6 +1,6 @@
 // backend/controllers/taxiController.js
 const Taxi = require('../models/Taxi');
-
+const mongoose = require('mongoose')
 // Créer un taxi
 exports.createTaxi = async(req, res) => {
     try {
@@ -12,8 +12,9 @@ exports.createTaxi = async(req, res) => {
 };
 exports.getTaxiById = async(req, res) => {
     try {
-        const { id } = req.params
-        const taxis = await Taxi.findById(id).populate({ path: 'driverId', select: 'name email phone' });
+        const { idDriver } = req.params
+        //const taxis = await Taxi.findById({driverId:id}).populate({ path: 'driverId', select: 'name email phone' });
+        const taxis = await Taxi.find({driverId:idDriver})
         res.json(taxis);
     } catch (err) {
         res.status(500).json({ error: err.message });

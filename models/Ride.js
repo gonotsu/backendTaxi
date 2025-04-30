@@ -12,6 +12,7 @@ const rideSchema = new mongoose.Schema({
     },
     distanceKm: Number,
     price: Number,
+    heure: String,
     status: { type: String, enum: ['en attente', 'en cours', 'terminé', 'annulé'], default: 'en attente' },
 }, { timestamps: true });
 

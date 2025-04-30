@@ -68,17 +68,17 @@ exports.getNearbyTaxis = async(req, res) => {
             return res.status(400).json({ message: 'lat, lng et radius sont requis' });
         }
 
-        const nearbyTaxis = await LiveLocation.find({
-            location: {
-                $near: {
-                    $geometry: {
-                        type: 'Point',
-                        coordinates: [parseFloat(lng), parseFloat(lat)],
-                    },
-                    $maxDistance: parseFloat(radius) * 1000, // km → mètres
-                },
-            },
-        }).populate({
+        const nearbyTaxis = await LiveLocation.find(
+            // location: {
+            //     $near: {
+            //         $geometry: {
+            //             type: 'Point',
+            //             coordinates: [parseFloat(lng), parseFloat(lat)],
+            //         },
+            //         $maxDistance: parseFloat(radius) * 1000, // km → mètres
+            //     },
+            // },
+        ).populate({
             path: 'taxiId',
             populate: {
                 path: 'driverId',

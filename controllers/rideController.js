@@ -2,7 +2,15 @@
 const Ride = require('../models/Ride');
 const Taxi = require('../models/Taxi')
 const { sendPushNotification } = require('../services/pushService');
-
+const axios = require('axios');
+const getAddress = async (coord) => {
+    const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${coord[1]}&lon=${coord[0]}`;
+    const res = await axios.get(url, {
+        headers: { 'User-Agent': 'Node.js App' }
+    });
+  
+    return res.data.address.suburb || res.data.address.city_district || res.data.display_name;
+  }
 // Créer une course
 exports.createRide = async(req, res) => {
     try {
@@ -28,6 +36,25 @@ exports.getAllRides = async(req, res) => {
     try {
         const rides = await Ride.find().populate('clientId taxiId');
         res.json(rides);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+exports.getUserRides = async(req, res) => {
+    try {
+        const { id } = req.params;
+        const rides = await Ride.find();
+        const updatUs = await Promise.all(
+            rides.map(async (histo) => {
+                return {
+                    id: histo._id,
+                    start: "alavitra",//await getAddress(histo.startLocation.coordinates),
+                    end: "alavitra",//await getAddress(histo.endLocation.coordinates),
+                    price: histo.price,
+                };
+            })
+        );
+        res.json(updatUs);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -72,15 +99,6 @@ exports.deleteRide = async(req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
-
-async function getAddress(lat, lon) {
-    const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`;
-    const res = await axios.get(url, {
-        headers: { 'User-Agent': 'Node.js App' }
-    });
-
-    return res.data.address.suburb || res.data.address.city_district || res.data.display_name;
-}
 
 const notifyDriver = async(driverId, message) => {
     const driver = await User.findById(driverId);
