@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const appRoutes = require('./routes/routes');
 const appRoute = require('./routes/usersRoutes')
-
+const passwordRoutes = require('../backendTaxi/routes/passwordResetRoutes')
 const app = express();
 const PORT = 5000;
 
@@ -19,6 +19,7 @@ mongoose.connect('mongodb://localhost:27017/taxi')
 // Routes
 app.use('/api', appRoutes);
 app.use('/users',appRoute)
+app.use("/password",passwordRoutes)
 // Démarrage du serveur
 app.listen(PORT, () => {
     console.log(`Server listening on http://localhost:${PORT}`);

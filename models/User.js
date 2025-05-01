@@ -28,6 +28,7 @@ const userSchema = new mongoose.Schema({
         enum: ['client', 'chauffeur'],
         default: 'client',
     }
+    ,isVerified: { type: Boolean, default: false }
 }, { timestamps: true });
 
 userSchema.pre('save', async function(next) {

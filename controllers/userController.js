@@ -1,5 +1,6 @@
 // backend/controllers/userController.js
 const User = require('../models/User');
+
 // Créer un utilisateur
 exports.createUser = async(req, res) => {
     try {
@@ -55,3 +56,4 @@ exports.deleteUser = async(req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
