@@ -12,9 +12,9 @@ exports.createTaxi = async(req, res) => {
 };
 exports.getTaxiById = async(req, res) => {
     try {
-        const { idDriver } = req.params
+        const { id } = req.params
         //const taxis = await Taxi.findById({driverId:id}).populate({ path: 'driverId', select: 'name email phone' });
-        const taxis = await Taxi.find({driverId:idDriver})
+        const taxis = await Taxi.findOne({ driverId:id },'licensePlate model color status')
         res.json(taxis);
     } catch (err) {
         res.status(500).json({ error: err.message });

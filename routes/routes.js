@@ -30,6 +30,7 @@ router.post('/auth/register', authController.register)
 router.post('/rides', rideController.createRide);
 router.get('/rides', rideController.getAllRides);
 router.get('/rides/:id', rideController.getUserRides);
+router.get('/ridesLoad/:id', rideController.getRideLoads);
 router.put('/rides/:id', rideController.updateRide);
 router.delete('/rides/:id', rideController.deleteRide);
 // --- Taxis Routes ---

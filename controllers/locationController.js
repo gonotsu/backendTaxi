@@ -80,11 +80,12 @@ exports.getNearbyTaxis = async(req, res) => {
             // },
         ).populate({
             path: 'taxiId',
+            match: { status: { $ne: 'hors service' } }, // ne peuplera que les taxi actifs
+            select: 'licensePlate status',
             populate: {
                 path: 'driverId',
                 select: 'name email phone'
             },
-            select: 'licensePlate',
         });
 
         res.status(200).json(nearbyTaxis);

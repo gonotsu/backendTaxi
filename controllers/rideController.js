@@ -3,15 +3,7 @@ const Ride = require('../models/Ride');
 const Taxi = require('../models/Taxi')
 const { sendPushNotification } = require('../services/pushService');
 const axios = require('axios');
-const getAddress = async (coord) => {
-    const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${coord[1]}&lon=${coord[0]}`;
-    const res = await axios.get(url, {
-        headers: { 'User-Agent': 'Node.js App' }
-    });
-  
-    return res.data.address.suburb || res.data.address.city_district || res.data.display_name;
-  }
-// Créer une course
+
 exports.createRide = async(req, res) => {
     try {
         const ride = await Ride.create(req.body);
@@ -40,21 +32,20 @@ exports.getAllRides = async(req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+exports.getRideLoads = async(req, res) => {
+    try {
+        const {id} = req.params 
+        const rides = await Ride.findOne({taxiId:id,status: "en cours"}).populate({path:'clientId',select:'name'});;
+        res.json(rides);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
 exports.getUserRides = async(req, res) => {
     try {
         const { id } = req.params;
-        const rides = await Ride.find();
-        const updatUs = await Promise.all(
-            rides.map(async (histo) => {
-                return {
-                    id: histo._id,
-                    start: "alavitra",//await getAddress(histo.startLocation.coordinates),
-                    end: "alavitra",//await getAddress(histo.endLocation.coordinates),
-                    price: histo.price,
-                };
-            })
-        );
-        res.json(updatUs);
+        const rides = await Ride.find({status:"en attente"});
+        res.json(rides);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

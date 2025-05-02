@@ -4,11 +4,13 @@ const rideSchema = new mongoose.Schema({
     taxiId: { type: mongoose.Types.ObjectId, ref: "Taxi", required: true },
     startLocation: {
         type: { type: String, enum: ["Point"], default: "Point" },
-        coordinates: { type: [Number], required: true }, // [lng, lat]
+        coordinates: { type: [Number], required: true },
+        destination: String
     },
     endLocation: {
         type: { type: String, enum: ["Point"], default: "Point" },
         coordinates: { type: [Number], required: true },
+        destination: String,
     },
     distanceKm: Number,
     price: Number,

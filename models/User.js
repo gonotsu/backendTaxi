@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
     password: String,
     phone: { type: String, required: true, unique: true },
     role: { type: String, enum: ['client', 'chauffeur'], default: 'client' },
+    isVerified: { type: Boolean, default: false },
     pushToken: { type: String },
 }, { timestamps: true });
 
