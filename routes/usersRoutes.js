@@ -4,6 +4,8 @@ const authMiddleware = require('../middleware/authMiddleware')
 const authController = require('../controllers/authController')
 const passwordResetController = require('../controllers/passwordResetController')
 const {registers, login} = require('../controllers/authController')
+
+//routes users
 router.post('/creerUsers',(req, res, next) => {
     console.log('Requête reçue:', req.body);
     next();
@@ -13,6 +15,7 @@ router.get('/me', authMiddleware, authController.middlewareAuth)
 router.post('/verifi-otp',authController.verifyOtp)
 router.post('/logout',authController.logout)
 
+//routes password
 router.post('/forgotPassword', (req, res, next) => {
     console.log('Requête reçue:', req.body);
     next();

@@ -6,6 +6,7 @@ const liveLocationController = require('../controllers/locationController');
 const authController = require('../controllers/authController')
 const authMiddleware = require('../middleware/authMiddleware');
 const router = express.Router();
+
 // Créer / mettre à jour position
 router.get('/location/nearby', liveLocationController.getNearbyTaxis);
 router.post('/location', liveLocationController.upsertLiveLocation);
@@ -23,11 +24,13 @@ router.get('/me', authMiddleware, authController.middlewareAuth)
 router.post('/auth/login', authController.login)
 router.post('/auth/register', authController.registers)
 router.post('/users', userController.createUser);
+
 // --- Rides Routes ---
 router.post('/rides', rideController.createRide);
 router.get('/rides', rideController.getAllRides);
 router.put('/rides/:id', rideController.updateRide);
 router.delete('/rides/:id', rideController.deleteRide);
+
 // --- Taxis Routes ---
 router.post('/taxis', taxiController.createTaxi);
 router.get('/taxis', taxiController.getAllTaxis);
