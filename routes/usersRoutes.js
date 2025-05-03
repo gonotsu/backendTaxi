@@ -9,6 +9,7 @@ router.post('/creerUsers',(req, res, next) => {
     next();
   },registers)
 router.post('/login',login)
+
 router.get('/me', authMiddleware, authController.middlewareAuth)
 router.post('/verifi-otp',authController.verifyOtp)
 router.post('/logout',authController.logout)
