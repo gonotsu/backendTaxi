@@ -17,9 +17,12 @@ router.delete('/location/:taxiId', liveLocationController.deleteLiveLocation);
 // --- Users Routes ---
 
 router.get('/users', userController.getAllUsers);
+router.post('/creerUsers', userController.createUser)
 router.get('/users/:id', userController.getUserById);
 router.put('/users/:id', userController.updateUser);
+router.put('/modifierListes/:id',userController.updateUser)
 router.delete('/users/:id', userController.deleteUser);
+router.get('/listesChauffeurs',userController.getAllDrivers)
 router.get('/me', authMiddleware, authController.middlewareAuth)
 router.post('/auth/login', authController.login)
 router.post('/auth/register', authController.registers)
