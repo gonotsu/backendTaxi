@@ -23,16 +23,21 @@ router.get('/me', authMiddleware, authController.middlewareAuth)
 router.post('/auth/login', authController.login)
 router.post('/auth/register', authController.registers)
 router.post('/users', userController.createUser);
+
 // --- Rides Routes ---
 router.post('/rides', rideController.createRide);
 router.get('/rides', rideController.getAllRides);
 router.put('/rides/:id', rideController.updateRide);
 router.delete('/rides/:id', rideController.deleteRide);
+router.get('/userRides',rideController.getRidesUser)
+router.get('/dashboard',rideController.getDashboardStats)
+
+router.get('/taxiLocation',liveLocationController.getAllLocation)
 // --- Taxis Routes ---
-router.post('/taxis', taxiController.createTaxi);
+router.post('/taxis', taxiController.createChauffeurAndTaxi);
 router.get('/taxis', taxiController.getAllTaxis);
-router.get('/taxis/:id', taxiController.getTaxiById);
-router.put('/taxis/:id', taxiController.updateTaxi);
-router.delete('/taxis/:id', taxiController.deleteTaxi);
+router.put('/taxis/:id', taxiController.updateChauffeurAndTaxi);
+router.delete('/taxis/:id', taxiController.deleteChauffeurAndTaxi);
+
 
 module.exports = router;
