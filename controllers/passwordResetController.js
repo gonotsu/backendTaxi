@@ -17,12 +17,12 @@ exports.sendResetCode = async(req,res) =>{
         const transporter = nodemailer.createTransport({
             service : 'gmail',
             auth : {
-                user : 'sederafifaliana46@gmail.com',
-                pass : 'vpmz vdmw zwqq rsua '
+                user : 'andranaapp@gmail.com',
+                pass : 'tbfj mikf cbsj gqoy'
             }
         })
         await transporter.sendMail({
-            from : 'sederafifaliana46@gmail.com',
+            from : 'andranaapp@gmail.com',
             to : email,
             subject : "Code de reinitialisation",
             text: `Votre code de vérification est : ${code}`

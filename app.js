@@ -17,7 +17,7 @@ mongoose.connect('mongodb://localhost:27017/taxiii')
 
 // Routes
 app.use('/api', appRoutes);
-app.use('/password',passwordRoutes);
+app.use('/api/password',passwordRoutes);
 
 // Démarrage du serveur
 app.listen(PORT, () => {

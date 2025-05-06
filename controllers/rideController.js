@@ -41,6 +41,34 @@ exports.getRideLoads = async(req, res) => {
         res.status(500).json({ error: err.message });
     }
 }
+exports.getRideAccept = async(req, res) => {
+    try {
+        const {id} = req.params 
+        const rides = await Ride.
+        findOne({clientId:id,status: "en cours"})
+        .populate({path:'taxiId',populate: {
+            path: 'driverId',
+            select: 'name'
+        }});
+        res.json(rides);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
+exports.getRideAttent = async(req, res) => {
+    try {
+        const {id} = req.params 
+        const rides = await Ride.
+        findOne({clientId:id,status: "en attente"})
+        .populate({path:'taxiId',populate: {
+            path: 'driverId',
+            select: 'name'
+        }});
+        res.json(rides);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
 exports.getUserRides = async(req, res) => {
     try {
         const { id } = req.params;

@@ -24,14 +24,16 @@ router.post('users/push-token', userController.putToken);
 
 router.get('/me', authMiddleware, authController.middlewareAuth)
 router.post('/auth/login', authController.login)
-router.post('/auth/register', authController.register)
-
+router.post('/auth/register', authController.registers)
+router.post('/verifi-otp',authController.verifyOtp)
 // --- Rides Routes ---
 router.post('/rides', rideController.createRide);
 router.get('/rides', rideController.getAllRides);
 router.get('/rides/:id', rideController.getUserRides);
 router.get('/ridesLoad/:id', rideController.getRideLoads);
-router.put('/rides/:id', rideController.updateRide);
+router.get('/rideAccept/:id',rideController.getRideAccept);
+router.get('/rideAttent/:id',rideController.getRideAttent);
+router.put('/rides/:id', rideController.updateRide);  
 router.delete('/rides/:id', rideController.deleteRide);
 // --- Taxis Routes ---
 router.post('/taxis', taxiController.createTaxi);
